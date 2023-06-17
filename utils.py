@@ -1,3 +1,5 @@
+import time
+
 import pygame,random,threading
 from Box import Box
 from settings import BOX_NUM,WIDTH,HEIGHT,PISTACHIO,BLACK
@@ -19,6 +21,7 @@ def game_over():
 
     # Update the display
     pygame.display.flip()
+    time.sleep(5)
     pygame.quit()  # Uninitialize Pygame
 
 
