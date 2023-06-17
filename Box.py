@@ -54,7 +54,7 @@ def create_box_wall():
     for i in range(BOX_NUM):
         if i not  in missing:
             print(i)
-            boxes.add(Box( 10+ i *(width +10),0, width, width, random.randint(5, 50)))
+            boxes.add(Box( 10+ i *(width +10),-width, width, width, random.randint(5, 50)))
     return boxes
 
 
