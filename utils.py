@@ -1,37 +1,42 @@
-import random
-import pygame
-# Ustawienia ekranu
-WIDTH = 900
-HEIGHT = 700
-FPS = 30 #liczba kratek na sekundę
+import pygame,random,threading
+from Box import Box
+from settings import BOX_NUM,WIDTH,HEIGHT,PISTACHIO,BLACK
 
-#box settings
-BOX_WIDTH =130
-BOX_HEIGHT =130
-BOX_SEP =20
+#SCREEN
+def init_screen():
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("supi dupi game")
+    return screen
+def game_over():
+    # Clear the SCREEN
+    SCREEN.fill(PISTACHIO)  # Fill with black color
 
-# Kolory
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-PISTACHIO = (147,197,114)
-LIGHT_PISTACHIO = (210, 240, 180)
-PINK = (222,165,164)
+    # Add game over text
+    font = pygame.font.Font(None, 64)
+    text = font.render("Game Over", True, BLACK )  # White color
+    text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    SCREEN.blit(text, text_rect)
 
-# metryki
-speed = 1
-score = 0
-step_start = 5
-step = step_start*speed
+    # Update the display
+    pygame.display.flip()
+    pygame.quit()  # Uninitialize Pygame
 
 
+SCREEN = init_screen()
 
-#util methods:
-def draw6():
-    numbers = [0, 1, 2, 3, 4, 5]
-    drawn_numbers = set(random.sample(numbers, k=4))
-    number1 = random.choice(numbers)
-    number2 = random.choice(numbers)
-    drawn_numbers.add(number1)
-    drawn_numbers.add(number2)
-    return drawn_numbers
+#helper methods
+def draw_missing():
+    return set(random.sample(range(BOX_NUM +1), k=2))
+def create_box_wall():
+    missing = draw_missing()
+    boxes = pygame.sprite.Group()
+
+    width= (WIDTH - 10*BOX_NUM)/BOX_NUM
+
+    print(width)
+
+    for i in range(BOX_NUM):
+        if i not  in missing:
+            print(i)
+            boxes.add(Box( 10+ i *(width +10),0, width, width, random.randint(5, 50)))
+    return boxes

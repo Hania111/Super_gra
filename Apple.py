@@ -1,26 +1,36 @@
 import pygame,random
-from utils import WHITE, HEIGHT,draw6,BOX_HEIGHT,BOX_WIDTH,BOX_SEP,WIDTH, RED
+from settings import WHITE, HEIGHT, BOX_HEIGHT,BOX_WIDTH,BOX_SEP,WIDTH, RED, step
 
 
-pygame.init()
+
 class Apple(pygame.sprite.Sprite):
-    def __init__(self, x, y, width, height, value):
+    def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.value = value
-        # Create a surface for the box with value displayed
-        self.image = pygame.Surface((30, 30))
+        self.image = pygame.Surface((30,30))
         self.image.fill(RED)
-        font = pygame.font.Font(None, 24)
-        text = font.render(str(self.value), True, (0, 0, 0))
-        text_rect = text.get_rect(center=(width // 2, height // 2))
-        self.image.blit(text, text_rect)
-
+        # self.original_image = pygame.image.load("jablko.png")
+        # self.image = pygame.transform.scale(self.original_image, (30, 30))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
 
     def update(self):
-        # Metoda wywoływana w każdej iteracji pętli gry
-        pass
+        self.rect.y+= step
+        if self.rect.y>HEIGHT:
+            self.kill()
+
+
+
+def updateApples(boxes, walls, apples):
+    if random.randint(0,100) == 2:
+        x = random.randint(0,WIDTH)
+        apple = Apple(x, 0)
+        if not pygame.sprite.spritecollide(apple, walls, False) and \
+            not pygame.sprite.spritecollide(apple, boxes, False) and \
+                not pygame.sprite.spritecollide(apple, apples, False) :
+            apples.add(apple)
+    return apples
+
+
 
 

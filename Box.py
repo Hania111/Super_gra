@@ -1,5 +1,5 @@
 import pygame,random
-from utils import WHITE, HEIGHT,draw6,BOX_HEIGHT,BOX_WIDTH,BOX_SEP,WIDTH
+from settings import WHITE, HEIGHT, BOX_HEIGHT,BOX_WIDTH,BOX_SEP,WIDTH, BOX_NUM
 
 
 pygame.init()
@@ -41,13 +41,20 @@ class Box(pygame.sprite.Sprite):
         self.update_text()
 
 
+def draw_missing():
+    return set(random.sample(range(BOX_NUM +1), k=2))
 def create_box_wall():
-    indexes = draw6()
+    missing = draw_missing()
     boxes = pygame.sprite.Group()
 
-    for i in range(6):
-        if i in indexes:
-            boxes.add(Box(BOX_WIDTH / 2 + (i * (BOX_SEP + BOX_WIDTH)) , BOX_HEIGHT / 2 , BOX_WIDTH, BOX_HEIGHT, random.randint(5, 50)))
+    width= (WIDTH - 10*BOX_NUM)/BOX_NUM
+
+    print(width)
+
+    for i in range(BOX_NUM):
+        if i not  in missing:
+            print(i)
+            boxes.add(Box( 10+ i *(width +10),0, width, width, random.randint(5, 50)))
     return boxes
 
-boxes = create_box_wall()
+
