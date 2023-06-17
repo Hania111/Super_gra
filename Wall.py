@@ -1,6 +1,6 @@
 import pygame
 import random
-from utils import WHITE, HEIGHT, WIDTH
+from settings import WHITE, HEIGHT
 
 class Wall(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
@@ -12,10 +12,3 @@ class Wall(pygame.sprite.Sprite):
         self.rect.y = y
 
 # Utworzenie grupy ścian
-walls = pygame.sprite.Group()
-
-# Dodanie ściany do grupy
-wall = Wall(30, 30, 10, HEIGHT)
-walls.add(wall)
-
-

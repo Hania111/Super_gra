@@ -1,40 +1,27 @@
 import pygame
-import sys
-from utils import WIDTH, HEIGHT, FPS, LIGHT_PISTACHIO, BLACK, speed, score
-from Player import Player, boxes
+import sys, threading
+from utils import create_box_wall,SCREEN,game_over
+from settings import WIDTH, HEIGHT, FPS, LIGHT_PISTACHIO, BLACK,SPEED
+import Player
+from sprite_actions import player_boxes_collision
 
-from utils import WIDTH, HEIGHT, FPS, LIGHT_PISTACHIO, BLACK
-from Player import Player
-
-from Wall import walls
-
-
-# Inicjalizacja Pygameee
 pygame.init()
 
 font = pygame.font.Font(None, 36)
 
-# Utworzenie okna gry
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Gra w labirynt")
+player = Player.Player()
+player.score = 100
 
-score = 0
-speed = 0
-
-font = pygame.font.Font(None, 36)
-
-
-# Inicjalizacja gracza
-player = Player()
-
-# Grupa sprite'ów
+# Create a group for all sprites
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
 
-# Główna pętla gry
-running = True
-while running:
+# Create the initial wall of boxes
+boxes = create_box_wall()  # Add each individual box sprite to the group
 
+
+running =True
+while running:
     # Częstotliwość odświeżania ekranu
     pygame.time.Clock().tick(FPS)
 
@@ -46,22 +33,27 @@ while running:
     # Aktualizacja
     all_sprites.update()
     boxes.update()
-    walls.update()
+    #walls.update()
+    player_boxes_collision(player, boxes)
+
+    if len(boxes) ==0:
+        boxes = create_box_wall()
 
 
     # Rysowanie
-    screen.fill(LIGHT_PISTACHIO)
+    SCREEN.fill(LIGHT_PISTACHIO)
     # Rysowanie ścian
-    walls.draw(screen)
-    boxes.draw(screen)
-    all_sprites.draw(screen)
+    #walls.draw(SCREEN)
+    boxes.draw(SCREEN)
+    all_sprites.draw(SCREEN)
+
+
 
     # rydowanie metryki
-    text_surface = font.render("Score: " + str(score), True, BLACK)
-    screen.blit(text_surface, (WIDTH - text_surface.get_width() - 20, 0))
-    text_surface = font.render("Speed: " + str(speed), True, BLACK)
-    screen.blit(text_surface, (WIDTH - text_surface.get_width() - 20, text_surface.get_height() + 10))
-
+    text_surface = font.render("Score: " + str(player.score), True, BLACK)
+    SCREEN.blit(text_surface, (WIDTH - text_surface.get_width() - 20, 0))
+    text_surface = font.render("Speed: " + str(SPEED), True, BLACK)
+    SCREEN.blit(text_surface, (WIDTH - text_surface.get_width() - 20, text_surface.get_height() + 10))
 
     # Wyświetlanie zmian
     pygame.display.flip()
@@ -69,3 +61,6 @@ while running:
 # Zamknięcie programu
 pygame.quit()
 sys.exit()
+
+
+

@@ -1,9 +1,6 @@
 import pygame
-from utils import PINK, WIDTH, HEIGHT, BLACK
-from Wall import walls
-from Box import create_box_wall
-import Box
-boxes = create_box_wall()
+from settings import PINK, WIDTH, HEIGHT,SPEED
+from utils import game_over
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -11,22 +8,28 @@ class Player(pygame.sprite.Sprite):
         self.image.fill(PINK)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.score =0
 
     def update(self):
-        old_rect = self.rect.copy()
+        self.prev_rect = self.rect.copy()
+        self.move()
+        self.check_screen_collisions()
 
-        # Poruszanie gracza
+
+    def move(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            self.rect.x -= 6
+            self.rect.x -= int(SPEED * 1.25)
         if keys[pygame.K_RIGHT]:
-            self.rect.x += 6
+            self.rect.x += int(SPEED * 1.25)
         if keys[pygame.K_UP]:
-            self.rect.y -= 6
+            self.rect.y -= int(SPEED * 1.25)
         if keys[pygame.K_DOWN]:
-            self.rect.y += 6
+            self.rect.y += int(SPEED * 1.25)
+        self.check_screen_collisions()
 
-        # Sprawdzenie kolizji z granicami ekranu
+
+    def check_screen_collisions(self):
         if self.rect.left < 0:
             self.rect.left = 0
         if self.rect.right > WIDTH:
@@ -35,15 +38,4 @@ class Player(pygame.sprite.Sprite):
             self.rect.top = 0
         if self.rect.bottom > HEIGHT:
             self.rect.bottom = HEIGHT
-
-        # Sprawdzenie kolizji z ścianami
-
-        if pygame.sprite.spritecollide(self, walls, False):
-            self.image.fill(BLACK)
-
-        collided_boxes = pygame.sprite.spritecollide(self, boxes, False)
-        if collided_boxes:
-            for box in collided_boxes:
-                box.decrease_value(1)
-                self.rect = old_rect
-                self.rect.y+=5
+            game_over()
