@@ -49,3 +49,5 @@ def create_box_wall():
         if i in indexes:
             boxes.add(Box(BOX_WIDTH / 2 + (i * (BOX_SEP + BOX_WIDTH)) , BOX_HEIGHT / 2 , BOX_WIDTH, BOX_HEIGHT, random.randint(5, 50)))
     return boxes
+
+boxes = create_box_wall()

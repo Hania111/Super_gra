@@ -1,12 +1,14 @@
 import pygame
 import sys
-from utils import WIDTH, HEIGHT, FPS, LIGHT_PISTACHIO, BLACK, speed, score
-from Player import Player, boxes
+from utils import speed, score
+from Player import Player
+from Box import boxes
 
 from utils import WIDTH, HEIGHT, FPS, LIGHT_PISTACHIO, BLACK
 from Player import Player
 
-from Wall import walls
+from Wall import walls, updateWalls
+from Apple import Apple
 
 
 # Inicjalizacja Pygameee
@@ -18,10 +20,7 @@ font = pygame.font.Font(None, 36)
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Gra w labirynt")
 
-score = 0
-speed = 0
 
-font = pygame.font.Font(None, 36)
 
 
 # Inicjalizacja gracza
@@ -47,6 +46,8 @@ while running:
     all_sprites.update()
     boxes.update()
     walls.update()
+    walls = updateWalls(walls)
+
 
 
     # Rysowanie

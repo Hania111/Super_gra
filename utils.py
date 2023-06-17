@@ -1,7 +1,8 @@
 import random
+import pygame
 # Ustawienia ekranu
 WIDTH = 900
-HEIGHT = 1000
+HEIGHT = 700
 FPS = 30 #liczba kratek na sekundę
 
 #box settings
@@ -18,8 +19,11 @@ LIGHT_PISTACHIO = (210, 240, 180)
 PINK = (222,165,164)
 
 # metryki
-speed = 0
+speed = 1
 score = 0
+step_start = 5
+step = step_start*speed
+
 
 
 #util methods:
