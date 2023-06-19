@@ -1,5 +1,5 @@
 import pygame,random
-from settings import WHITE, HEIGHT, BOX_HEIGHT,BOX_WIDTH,BOX_SEP,WIDTH, BOX_NUM
+from settings import WHITE, HEIGHT, BOX_HEIGHT,BOX_WIDTH,BOX_SEP,WIDTH, BOX_NUM, PINK
 
 
 pygame.init()
@@ -10,7 +10,7 @@ class Box(pygame.sprite.Sprite):
 
         # Create a surface for the box with value displayed
         self.image = pygame.Surface((width, height))
-        self.image.fill(WHITE)
+        self.image.fill(PINK)
         font = pygame.font.Font(None, 24)
         text = font.render(str(self.value), True, (0, 0, 0))
         text_rect = text.get_rect(center=(width // 2, height // 2))
@@ -30,7 +30,7 @@ class Box(pygame.sprite.Sprite):
     def update_text(self):
         text = pygame.font.Font(None, 24).render(str(self.value), True, (0, 0, 0))
         text_rect = text.get_rect(center=(self.rect.width // 2, self.rect.height // 2))
-        self.image.fill(WHITE)
+        self.image.fill(PINK)
         self.image.blit(text, text_rect)
 
     def decrease_value(self, amount):

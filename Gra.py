@@ -3,7 +3,7 @@ import sys
 from settings import speed
 from Box import create_box_wall
 
-from settings import WIDTH, HEIGHT, FPS, LIGHT_PISTACHIO, BLACK
+from settings import WIDTH, HEIGHT, FPS, LIGHT_PISTACHIO, BLACK, background
 from Player import Player
 
 from Wall import updateWalls
@@ -57,6 +57,7 @@ def main_game_loop():
 
         # Rysowanie
         SCREEN.fill(LIGHT_PISTACHIO)
+        #SCREEN.blit(background,(0,0))
         # Rysowanie ścian
         walls.draw(SCREEN)
         boxes.draw(SCREEN)

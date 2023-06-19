@@ -6,8 +6,10 @@ from utils import game_over
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((50, 50))
-        self.image.fill(PINK)
+        # self.image = pygame.Surface((50, 50))
+        # self.image.fill(PINK)
+        self.original_image = pygame.image.load("Untitled_Artwork-1.png")
+        self.image = pygame.transform.scale(self.original_image, (40, 80))
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH / 2, HEIGHT / 2)
         self.score = 100

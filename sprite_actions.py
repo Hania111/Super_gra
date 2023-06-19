@@ -1,4 +1,4 @@
-from settings import speed, HEIGHT, step
+from settings import speed, HEIGHT, step, APPLE_POINTS
 from utils import game_over
 import pygame
 def player_boxes_collision(player, boxes):
@@ -22,6 +22,6 @@ def player_walls_collision(player, walls):
 def player_apples_collision(player, apples):
     collision_apples = pygame.sprite.spritecollideany(player, apples)
     if collision_apples:
-        player.score += 20
+        player.score += APPLE_POINTS
         collision_apples.kill()
 

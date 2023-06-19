@@ -1,5 +1,5 @@
 import pygame,random
-from settings import WHITE, HEIGHT, BOX_HEIGHT,BOX_WIDTH,BOX_SEP,WIDTH, RED, step
+from settings import WHITE, HEIGHT, BOX_HEIGHT,BOX_WIDTH,BOX_SEP,WIDTH, RED, step, PROBABILITY_APPLES
 
 
 
@@ -22,7 +22,7 @@ class Apple(pygame.sprite.Sprite):
 
 
 def updateApples(boxes, walls, apples):
-    if random.randint(0,100) == 2:
+    if random.randint(0,PROBABILITY_APPLES) == 2:
         x = random.randint(0,WIDTH)
         apple = Apple(x, 0)
         if not pygame.sprite.spritecollide(apple, walls, False) and \
