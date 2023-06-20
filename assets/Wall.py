@@ -1,6 +1,6 @@
 import pygame
 import random
-from settings import WHITE, HEIGHT, WIDTH, step, PEACH, BOTTLE_GREEN, PROBABILITY_WALL
+from settings import WHITE, HEIGHT, WIDTH, STEP,SPEED, PEACH, BOTTLE_GREEN, PROBABILITY_WALL
 
 
 class Wall(pygame.sprite.Sprite):
@@ -13,13 +13,13 @@ class Wall(pygame.sprite.Sprite):
         self.rect.y = y
 
     def update(self):
-        self.rect.y+=step
+        self.rect.y+=STEP*SPEED
         if self.rect.y>HEIGHT:
             self.kill()
 
 
 
-def updateWalls(boxes, walls, apples):
+def create_walls(boxes, walls, apples):
     if random.randint(0,PROBABILITY_WALL) == 2:
         wall_height = 10
         wall_length = random.randint(int(WIDTH/8), WIDTH / 2)

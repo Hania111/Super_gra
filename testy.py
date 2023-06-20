@@ -1,14 +1,8 @@
-import pytest
-import random
-
-import pytest
 import pygame
-from pygame.locals import *
-from Apple import Apple, updateApples
-from Wall import Wall, updateWalls
-from settings import HEIGHT, WIDTH, step, APPLE_POINTS
-from unittest.mock import patch
-from Player import Player
+from Super_gra.assets.Apple import Apple
+from Super_gra.assets.Wall import Wall
+from settings import STEP, APPLE_POINTS
+from Super_gra.assets.Player import Player
 from sprite_actions import player_apples_collision
 
 
@@ -23,7 +17,7 @@ def test_Apple_update():
     x, y = 100, 200
     apple = Apple(x, y)
     apple.update()
-    assert apple.rect.y == y + step
+    assert apple.rect.y == y + STEP
 
 
 # testy obiektu Wall
@@ -41,23 +35,24 @@ def test_Wall_update():
     width, height = 50, 20
     wall = Wall(x, y, width, height)
     wall.update()
-    assert wall.rect.y == y + step
+    assert wall.rect.y == y + STEP
 
 
 # test zjadania jabłka
 def test_Apple_eat():
     apples = pygame.sprite.Group()
     player = Player()
-    resoult = player.score + APPLE_POINTS
-    print(resoult)
+    result = player.score + APPLE_POINTS
+    print(result)
     apples.add(Apple(player.rect.x, player.rect.y))
     player_apples_collision(player, apples)
     print(player.score)
-    assert resoult == resoult
+    assert result == result
 
 # test kolizji obiektów
 # @patch('random.randint', return_value=42)
 # def test_collision():
+
 #     boxes = pygame.sprite.Group()
 #     walls = pygame.sprite.Group()
 #     apples = pygame.sprite.Group()

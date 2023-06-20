@@ -1,8 +1,9 @@
 import time
 
-import pygame,random,threading
-from Box import Box
+import pygame,random
+from Super_gra.assets.Box import Box
 from settings import BOX_NUM,WIDTH,HEIGHT,PISTACHIO,BLACK
+
 
 #SCREEN
 def init_screen():
@@ -26,6 +27,14 @@ def game_over():
 
 
 SCREEN = init_screen()
+
+def set_speed(value):
+    global SPEED
+    SPEED = value
+
+def set_curr_max(value):
+    global CURRENT_MAX
+    CURRENT_MAX = value
 
 #helper methods
 def draw_missing():

@@ -1,8 +1,10 @@
 import random
 import pygame
+
+#hydra
 # Ustawienia ekranu
-WIDTH = 900
-HEIGHT = 700
+WIDTH = 800
+HEIGHT = 900
 FPS = 30 #liczba kratek na sekundę
 
 #box settings
@@ -22,18 +24,18 @@ PEACH = (255, 218, 185)
 BOTTLE_GREEN = (0, 106, 78)
 
 
+CURRENT_MAX=100
 
 # metryki
-speed = 1
-step_start = 5
-step = step_start*speed
-player_speed = 9
+SPEED = 1
+STEP = 5
 
-background = pygame.image.load("D:\Programowanie\Python\JezykiSkryptowe\super_gra\Get the We Heart It app!.jpeg")
-background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+
+#background = pygame.image.load("D:\Programowanie\Python\JezykiSkryptowe\super_gra\Get the We Heart It app!.jpeg")
+#background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 # Apple settings
-PROBABILITY_APPLES = 100
-APPLE_POINTS = 20
+PROBABILITY_APPLES = 30
+APPLE_POINTS = 10
 # Wall settings
 PROBABILITY_WALL = 35

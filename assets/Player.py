@@ -1,5 +1,5 @@
 import pygame
-from settings import PINK, WIDTH, HEIGHT, BLACK, step, player_speed
+from settings import PINK, WIDTH, HEIGHT, BLACK, STEP, SPEED
 # from Gra import boxes, walls, apples
 from utils import game_over
 
@@ -8,7 +8,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         # self.image = pygame.Surface((50, 50))
         # self.image.fill(PINK)
-        self.original_image = pygame.image.load("Untitled_Artwork-1.png")
+        self.original_image = pygame.image.load("pics/snail.png")
         self.image = pygame.transform.scale(self.original_image, (40, 80))
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH / 2, HEIGHT / 2)
@@ -23,13 +23,14 @@ class Player(pygame.sprite.Sprite):
         # Poruszanie gracza
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            self.rect.x -= player_speed
+            self.rect.x -= STEP*SPEED +2
         if keys[pygame.K_RIGHT]:
-            self.rect.x += player_speed
+            self.rect.x += STEP*SPEED*+2
         if keys[pygame.K_UP]:
-            self.rect.y -= player_speed
+            self.rect.y -= STEP*SPEED*+2
         if keys[pygame.K_DOWN]:
-            self.rect.y += player_speed
+            self.rect.y += STEP*SPEED*+2
+            print(SPEED)
 
     def check_screen_collisions(self):
         if self.rect.left < 0:
@@ -40,7 +41,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.top = 0
         if self.rect.bottom > HEIGHT:
             self.rect.bottom = HEIGHT
-            game_over()
+
 
 
         # # Sprawdzenie kolizji z ścianami

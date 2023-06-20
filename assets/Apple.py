@@ -1,5 +1,5 @@
 import pygame,random
-from settings import WHITE, HEIGHT, BOX_HEIGHT,BOX_WIDTH,BOX_SEP,WIDTH, RED, step, PROBABILITY_APPLES
+from settings import WHITE, HEIGHT, BOX_HEIGHT,BOX_WIDTH,BOX_SEP,WIDTH, RED, STEP,SPEED, PROBABILITY_APPLES
 
 
 
@@ -8,20 +8,20 @@ class Apple(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         # self.image = pygame.Surface((30,30))
         # self.image.fill(RED)
-        self.original_image = pygame.image.load("clipart1288.png")
+        self.original_image = pygame.image.load("pics/clipart1288.png")
         self.image = pygame.transform.scale(self.original_image, (40, 40))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
 
     def update(self):
-        self.rect.y+= step
+        self.rect.y+= STEP*SPEED
         if self.rect.y>HEIGHT:
             self.kill()
 
 
 
-def updateApples(boxes, walls, apples):
+def create_apples(boxes, walls, apples):
     if random.randint(0,PROBABILITY_APPLES) == 2:
         x = random.randint(0,WIDTH)
         apple = Apple(x, 0)
