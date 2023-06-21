@@ -24,16 +24,10 @@ BOTTLE_GREEN = (0, 106, 78)
 
 
 
-
-
-# increasing speed
-nr_pointls_for_level = 150
-multiplier_for_speed = 5
-
-
 background = pygame.image.load("D:\Programowanie\Python\JezykiSkryptowe\super_gra\Get the We Heart It app!.jpeg")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 apple_red_image = "clipart1288.png"
+snail_image = "Untitled_Artwork-1.png"
 
 # Apple settings
 PROBABILITY_APPLES = 100
@@ -49,6 +43,9 @@ speed_level_3 = 8
 
 level_2_treshold = 150
 level_3_treshold = 250
+
+player_speed = 7
+start_points = 100
 
 
 

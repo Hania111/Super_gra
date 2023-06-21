@@ -4,7 +4,7 @@ from Box import create_box_wall
 
 from settings import WIDTH, HEIGHT, FPS, LIGHT_PISTACHIO, BLACK, background
 from Player import Player
-
+from Button import Button
 from Wall import generateWalls
 from Apple import generateApples
 
@@ -14,10 +14,60 @@ from sprite_actions import player_boxes_collision, player_walls_collision, playe
 
 def handle_events():
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            return False
-    return True
+        return not event.type == pygame.QUIT
 
+
+def start_screen_loop():
+    font = pygame.font.Font(None, 36)
+
+    start_button = Button(WIDTH // 2, HEIGHT // 2, 200, 50, "Start", font)
+
+    while True:
+        pygame.time.Clock().tick(FPS)
+
+        SCREEN.fill(LIGHT_PISTACHIO)
+        start_button.update()
+        start_button.draw(SCREEN)
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                if start_button.is_clicked(pos):
+                    main_game_loop()
+            else:
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
+
+
+def game_over_screen_loop(player):
+    font = pygame.font.Font(None, 36)
+
+    retry_button = Button(WIDTH // 2, HEIGHT // 2, 200, 50, "Retry", font)
+
+
+    while True:
+        pygame.time.Clock().tick(FPS)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                if retry_button.is_clicked(pos):
+                    main_game_loop()
+
+        SCREEN.fill(LIGHT_PISTACHIO)
+        retry_button.update()
+        retry_button.draw(SCREEN)
+
+        score_text = font.render("Score: " + str(player.score), True, BLACK)
+        SCREEN.blit(score_text, (WIDTH // 2 - score_text.get_width() // 2, HEIGHT // 2 - 100))
+        pygame.display.flip()
 def update_sprites(player, boxes, walls, apples):
     player.update()
     boxes.update(player)
@@ -64,7 +114,9 @@ def main_game_loop():
     while running:
         pygame.time.Clock().tick(FPS)
 
-        running = handle_events()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
         update_sprites(player, boxes, walls, apples)
 
@@ -72,9 +124,12 @@ def main_game_loop():
         if len(boxes) == 0:
             boxes = create_box_wall()
 
+        if player.rect.bottom >= HEIGHT:
+            game_over_screen_loop(player)
+
     pygame.quit()
     sys.exit()
 
 if __name__ == "__main__":
-    main_game_loop()
+    start_screen_loop()
 
