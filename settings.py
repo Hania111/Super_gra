@@ -1,4 +1,5 @@
 import random
+# pakiet hydra
 import pygame
 # Ustawienia ekranu
 WIDTH = 900
@@ -23,17 +24,23 @@ BOTTLE_GREEN = (0, 106, 78)
 
 
 
-# metryki
-speed = 1
-step_start = 5
-step = step_start*speed
-player_speed = 9
+
+
+# increasing speed
+nr_pointls_for_level = 150
+multiplier_for_speed = 5
+
 
 background = pygame.image.load("D:\Programowanie\Python\JezykiSkryptowe\super_gra\Get the We Heart It app!.jpeg")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+apple_red_image = "clipart1288.png"
 
 # Apple settings
 PROBABILITY_APPLES = 100
 APPLE_POINTS = 20
 # Wall settings
-PROBABILITY_WALL = 35
+PROBABILITY_WALL = 45
+HEIGHT_OF_WALL = 10
+
+
+

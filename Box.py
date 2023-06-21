@@ -1,5 +1,6 @@
 import pygame,random
 from settings import WHITE, HEIGHT, BOX_HEIGHT,BOX_WIDTH,BOX_SEP,WIDTH, BOX_NUM, PINK
+from Player import Player
 
 
 pygame.init()
@@ -20,8 +21,8 @@ class Box(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-    def update(self):
-        self.rect.y+=5
+    def update(self, player: Player):
+        self.rect.y+=player.step
         self.update_text()
         if self.rect.y>HEIGHT:
             self.kill()
@@ -46,14 +47,9 @@ def draw_missing():
 def create_box_wall():
     missing = draw_missing()
     boxes = pygame.sprite.Group()
-
     width= (WIDTH - 10*BOX_NUM)/BOX_NUM
-
-    print(width)
-
     for i in range(BOX_NUM):
         if i not  in missing:
-            print(i)
             boxes.add(Box( 10+ i *(width +10),-width, width, width, random.randint(5, 50)))
     return boxes
 

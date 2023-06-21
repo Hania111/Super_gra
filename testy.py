@@ -4,15 +4,15 @@ import random
 import pytest
 import pygame
 from pygame.locals import *
-from Apple import Apple, updateApples
-from Wall import Wall, updateWalls
-from settings import HEIGHT, WIDTH, step, APPLE_POINTS
+from Apple import Apple, generateApples
+from Wall import Wall, generateWalls
+from settings import HEIGHT, WIDTH, APPLE_POINTS
 from unittest.mock import patch
 from Player import Player
-from sprite_actions import player_apples_collision
+from sprite_actions import player_apples_collision, player_walls_collision
 
 
-# testy obiektu Apple
+# tests of Apples
 def test_Apple_init():
     x, y = 100, 200
     apple = Apple(x, y)
@@ -20,13 +20,14 @@ def test_Apple_init():
     assert apple.rect.y == y
 
 def test_Apple_update():
+    player : Player= Player()
     x, y = 100, 200
     apple = Apple(x, y)
-    apple.update()
-    assert apple.rect.y == y + step
+    apple.update(player)
+    assert apple.rect.y == y + player.step
 
 
-# testy obiektu Wall
+# tests of walls
 def test_Wall_init():
     x, y = 100, 200
     width, height = 50, 20
@@ -37,59 +38,38 @@ def test_Wall_init():
     assert wall.rect.height == height
 
 def test_Wall_update():
+    player: Player = Player()
     x, y = 100, 200
     width, height = 50, 20
     wall = Wall(x, y, width, height)
-    wall.update()
-    assert wall.rect.y == y + step
+    wall.update(player)
+    assert wall.rect.y == y + player.step
 
 
-# test zjadania jabłka
+# Test of player and apples collision
 def test_Apple_eat():
     apples = pygame.sprite.Group()
     player = Player()
     resoult = player.score + APPLE_POINTS
-    print(resoult)
     apples.add(Apple(player.rect.x, player.rect.y))
     player_apples_collision(player, apples)
-    print(player.score)
     assert resoult == resoult
 
-# test kolizji obiektów
-# @patch('random.randint', return_value=42)
-# def test_collision():
-#     boxes = pygame.sprite.Group()
-#     walls = pygame.sprite.Group()
-#     apples = pygame.sprite.Group()
-#
-#     # Test when random.randint(0, 35) returns 2
-#     # random.randint = lambda a, b: 2
-#     walls = updateWalls(boxes, walls, apples)
-#     assert len(walls) == 0
-    #
-    # # Test when random.randint(0, 35) does not return 2
-    # random.randint = lambda a, b: 3
-    # walls = updateWalls(boxes, walls, apples)
-    # assert len(walls) == 1
 
-    # # Test collision with boxes
-    # boxes.add(Wall(100, 200, 50, 20))
-    # walls = updateWalls(boxes, walls, apples)
-    # assert len(walls) == 1
-    #
-    # # Test collision with existing walls
-    # walls.add(Wall(100, 200, 50, 20))
-    # walls = updateWalls(boxes, walls, apples)
-    # assert len(walls) == 1
-    #
-    # # Test collision with existing apples
-    # apples.add(Wall(100, 200, 50, 20))
-    # walls = updateWalls(boxes, walls, apples)
-    # assert len(walls) == 1
-    #
-    # # Test when all collisions are avoided
-    # boxes.empty()
-    # walls.empty()
-    # apples.empty()
-    # walls = updateWalls(boxes, walls, apples)
-    # assert len(walls) == 2
+# Test of player and wall
+def test_collision_walls():
+    walls = pygame.sprite.Group()
+    player = Player()
+    resoult = player.rect.y
+    walls.add(Wall(player.rect.x, player.rect.y-step, 10, 10))
+    # pygame.event.post(pygame.event.Event(KEYDOWN, key=K_UP))
+    # player.move()
+    player.rect.y += player.step
+    player_walls_collision(player, walls)
+    assert player.rect.y == resoult + player.step
+
+# speed test
+# def test_changing_speed():
+#     resoult = spe + 10
+#     change_speed(resoult)
+#     assert resoult == speed

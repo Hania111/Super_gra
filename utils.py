@@ -1,8 +1,8 @@
 import time
 
 import pygame,random,threading
-from Box import Box
-from settings import BOX_NUM,WIDTH,HEIGHT,PISTACHIO,BLACK
+
+from settings import BOX_NUM,WIDTH,HEIGHT,PISTACHIO,BLACK, multiplier_for_speed, nr_pointls_for_level
 
 #SCREEN
 def init_screen():
@@ -30,16 +30,7 @@ SCREEN = init_screen()
 #helper methods
 def draw_missing():
     return set(random.sample(range(BOX_NUM +1), k=2))
-def create_box_wall():
-    missing = draw_missing()
-    boxes = pygame.sprite.Group()
 
-    width= (WIDTH - 10*BOX_NUM)/BOX_NUM
 
-    print(width)
 
-    for i in range(BOX_NUM):
-        if i not  in missing:
-            print(i)
-            boxes.add(Box( 10+ i *(width +10),0, width, width, random.randint(5, 50)))
-    return boxes
+
