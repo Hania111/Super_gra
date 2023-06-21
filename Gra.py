@@ -1,12 +1,12 @@
 import pygame
 import sys
-from Box import create_box_wall
+from assets.Box import create_box_wall
 
-from settings import WIDTH, HEIGHT, FPS, LIGHT_PISTACHIO, BLACK, background
+from settings import WIDTH, HEIGHT, FPS, LIGHT_PISTACHIO, BLACK
 from Player import Player
-from Button import Button
-from Wall import generateWalls
-from Apple import generateApples
+from assets.Button import Button
+from assets.Wall import generateWalls
+from assets.Apple import generateApples
 
 from utils import SCREEN
 from sprite_actions import player_boxes_collision, player_walls_collision, player_apples_collision

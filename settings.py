@@ -24,9 +24,9 @@ BOTTLE_GREEN = (0, 106, 78)
 
 
 
-background = pygame.image.load("D:\Programowanie\Python\JezykiSkryptowe\super_gra\Get the We Heart It app!.jpeg")
+background = pygame.image.load("D:\Programowanie\Python\JezykiSkryptowe\super_gra\images\Get the We Heart It app!.jpeg")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
-apple_red_image = "clipart1288.png"
+apple_red_image = "D:\Programowanie\Python\JezykiSkryptowe\super_gra\images\clipart1288.png"
 snail_image = "Untitled_Artwork-1.png"
 
 # Apple settings

@@ -1,13 +1,7 @@
-import pytest
-import random
-
-import pytest
 import pygame
-from pygame.locals import *
-from Apple import Apple, generateApples
-from Wall import Wall, generateWalls
-from settings import HEIGHT, WIDTH, APPLE_POINTS, level_2_treshold, level_3_treshold, speed_level_1, speed_level_2, speed_level_3
-from unittest.mock import patch
+from assets.Apple import Apple
+from assets.Wall import Wall
+from settings import APPLE_POINTS, level_2_treshold, level_3_treshold, speed_level_1, speed_level_2, speed_level_3
 from Player import Player
 from sprite_actions import player_apples_collision, player_walls_collision
 
