@@ -42,5 +42,15 @@ APPLE_POINTS = 20
 PROBABILITY_WALL = 45
 HEIGHT_OF_WALL = 10
 
+# levels settings
+speed_level_1 = 4
+speed_level_2 = 6
+speed_level_3 = 8
+
+level_2_treshold = 150
+level_3_treshold = 250
+
+
+
 
 

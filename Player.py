@@ -1,5 +1,6 @@
 import pygame
-from settings import PINK, WIDTH, HEIGHT, BLACK
+from settings import PINK, WIDTH, HEIGHT, BLACK, level_2_treshold, level_3_treshold, speed_level_1,\
+    speed_level_2, speed_level_3
 from utils import game_over
 
 class Player(pygame.sprite.Sprite):
@@ -15,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.score = 100
         self.step = 5
         self.level = 1
-        self.player_speed = self.step + 2
+        self.player_speed = self.step+2
 
     def update(self):
         self.prev_rect = self.rect.copy()
@@ -47,10 +48,10 @@ class Player(pygame.sprite.Sprite):
             game_over()
 
     def update_metrics(self):
-        level_speed_mapping = {1: 4, 2: 6, 3: 8}
-        if self.score < 150:
+        level_speed_mapping = {1: speed_level_1, 2: speed_level_2, 3: speed_level_3}
+        if self.score < level_2_treshold:
             self.level = 1
-        elif self.score < 200:
+        elif self.score < level_3_treshold:
             self.level = 2
         else:
             self.level = 3
